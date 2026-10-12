@@ -1,0 +1,24 @@
+{
+  "name": "keplers-cosmic-cup",
+  "version": "1.0.0",
+  "description": "The five Platonic solids nested between the spheres of the six planets, as Kepler imagined in his Mysterium Cosmographicum, in 3D.",
+  "repository": "github:evoluteur/keplers-cosmic-cup",
+  "homepage": "https://evoluteur.github.io/keplers-cosmic-cup/",
+  "copyright": "(c) 2026 Olivier Giulieri",
+  "author": "Olivier Giulieri (https://evoluteur.github.io/)",
+  "license": "MIT",
+  "keywords": [
+    "kepler",
+    "mysterium-cosmographicum",
+    "platonic-solids",
+    "sacred-geometry",
+    "astronomy",
+    "planets",
+    "3d",
+    "canvas",
+    "history-of-science",
+    "esoterica",
+    "pwa",
+    "javascript"
+  ]
+}

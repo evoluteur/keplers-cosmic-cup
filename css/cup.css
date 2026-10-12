@@ -1,0 +1,179 @@
+/* Kepler's Cosmic Cup */
+.tagline {
+  max-width: 900px;
+}
+.stage {
+  max-width: 680px;
+}
+#cup {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  border: 3px solid var(--card-border);
+  box-sizing: border-box;
+  cursor: grab;
+  touch-action: none;
+  background: #070a14;
+}
+#cup:active {
+  cursor: grabbing;
+}
+#cup:focus-visible {
+  outline: 2px solid #ffa500;
+  outline-offset: 2px;
+}
+.stage-bar {
+  margin: 10px 0 14px;
+}
+.stage-bar button {
+  padding: 6px 12px;
+}
+.info-name {
+  font-size: 1.3em;
+  font-weight: bold;
+  color: var(--c);
+  margin-bottom: 4px;
+}
+.info p {
+  margin: 0;
+  font-size: 0.92em;
+  line-height: 1.5;
+  opacity: 0.9;
+}
+
+.layers {
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 0;
+}
+.layers li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+}
+.layers li.solid {
+  padding-left: 16px;
+}
+.layers .vis input {
+  width: 1em;
+  height: 1em;
+  margin: 0;
+  padding: 0;
+  accent-color: #ffa500;
+}
+.layers button.go {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  margin: 1px 0;
+  padding: 3px 8px;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  border: 2px solid transparent;
+  text-align: left;
+  font-size: 0.9em;
+}
+.layers button.go:hover,
+.layers button.go:focus {
+  background-color: color-mix(in srgb, var(--c), transparent 85%);
+}
+.layers li.focus button.go {
+  border-color: var(--c);
+}
+.sw {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  border: 2px solid var(--c);
+  transform: rotate(45deg);
+  flex: 0 0 auto;
+}
+.planet .sw,
+.sw.round {
+  border-radius: 50%;
+  transform: none;
+  background: var(--c);
+}
+.layers .sub {
+  margin-left: auto;
+  font-size: 0.75em;
+  opacity: 0.65;
+}
+
+h3.section {
+  margin: 30px 0 12px;
+}
+.tables {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+.table-wrap {
+  flex: 1 1 320px;
+  max-width: 560px;
+  overflow-x: auto;
+}
+table.ratios {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.9em;
+}
+table.ratios caption {
+  text-align: left;
+  font-size: 0.85em;
+  opacity: 0.8;
+  padding-bottom: 6px;
+}
+table.ratios th,
+table.ratios td {
+  padding: 6px 8px;
+  text-align: left;
+  border-bottom: 1px solid var(--card-border);
+  white-space: nowrap;
+}
+table.ratios th {
+  font-weight: normal;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.75;
+}
+table.ratios .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+table.ratios td .sw {
+  margin-right: 8px;
+}
+td.good {
+  color: #66bb6a;
+}
+td.fair {
+  color: #ffb74d;
+}
+td.poor {
+  color: #ef5350;
+}
+html[data-theme="light"] td.good {
+  color: #2e7d32;
+}
+html[data-theme="light"] td.fair {
+  color: #b26a00;
+}
+html[data-theme="light"] td.poor {
+  color: #c62828;
+}
+html[data-theme="evol-blue"] td.good,
+html[data-theme="evol-blue"] td.fair,
+html[data-theme="evol-blue"] td.poor {
+  color: white;
+  font-weight: bold;
+}
+
+html[data-theme="light"] .info-name {
+  filter: brightness(0.6) saturate(1.4);
+}

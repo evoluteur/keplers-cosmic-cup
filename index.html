@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-063933E3C2"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-063933E3C2");
+    </script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kepler's Cosmic Cup</title>
+    <meta
+      name="description"
+      content="Kepler's Mysterium Cosmographicum in 3D: the five Platonic solids nested between the spheres of the six planets. Zoom through each layer and compare Kepler's distances with the real ones."
+    />
+    <meta name="author" content="Olivier Giulieri" />
+    <link
+      rel="canonical"
+      href="https://evoluteur.github.io/keplers-cosmic-cup/"
+    />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="icon-192.png" />
+    <meta name="theme-color" content="#1a212d" />
+    <meta property="og:title" content="Kepler's Cosmic Cup" />
+    <meta
+      property="og:description"
+      content="Kepler's Mysterium Cosmographicum in 3D: the five Platonic solids nested between the spheres of the six planets. Zoom through each layer and compare Kepler's distances with the real ones."
+    />
+    <meta
+      property="og:image"
+      content="https://evoluteur.github.io/keplers-cosmic-cup/keplers-cosmic-cup.png"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Overpass"
+    />
+    <link id="omg-core-css" rel="stylesheet" href="css/core.css" />
+    <script>
+      // load the saved theme before first paint (no flash, no layout shift)
+      (function () {
+        var t = "dark";
+        try {
+          t = localStorage.getItem("omg-theme") || t;
+        } catch (e) {}
+        if (t !== "dark" && t !== "light" && t !== "evol-blue") t = "dark";
+        document.documentElement.setAttribute("data-theme", t);
+        document.write(
+          '<link id="omg-theme-css" rel="stylesheet" href="css/themes/' +
+            t + "/" + t + '.css" />',
+        );
+      })();
+    </script>
+    <link id="omg-density-css" rel="stylesheet" href="css/densities.css" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/cup.css" />
+    <link rel="stylesheet" href="css/about.css" />
+
+    <script src="js/omg.js"></script>
+    <script src="js/solids.js"></script>
+    <script src="js/cup.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        addEventListener("load", () =>
+          navigator.serviceWorker.register("sw.js"),
+        );
+      }
+    </script>
+  </head>
+
+  <body
+    onload="
+      setupPage('home');
+      initCup();
+    "
+    id="omg-body" class="medium"
+  >
+    <div id="omg-header">
+      <h1>Kepler's Cosmic Cup</h1>
+      <div class="header-icons">
+        <div id="omg-theme-picker"></div>
+        <a
+          id="omg-github"
+          href="https://github.com/evoluteur/keplers-cosmic-cup"
+          target="_blank"
+          rel="noopener"
+          title="Kepler's Cosmic Cup on GitHub"
+          aria-label="Kepler's Cosmic Cup on GitHub"
+          ><svg viewBox="0 0 16 16" aria-hidden="true">
+            <path
+              d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+            /></svg
+        ></a>
+      </div>
+    </div>
+    <h2>The five solids between the six planets</h2>
+    <div class="content">
+      <p class="tagline">
+        In 1596 a young Johannes Kepler thought he had found the secret plan of
+        the cosmos: the six known planets were spaced by the five perfect
+        solids, nested one inside the other. Turn the model, zoom from Saturn
+        down to Mercury, and see how close he came.
+      </p>
+
+      <div class="layout">
+        <div class="stage">
+          <canvas
+            id="cup"
+            tabindex="0"
+            aria-label="3D model of Kepler's nested Platonic solids and planetary spheres. Drag or use the arrow keys to turn it, plus and minus to zoom."
+          ></canvas>
+          <div class="stage-bar btns">
+            <button type="button" class="ghost" id="zoom-out" title="Zoom out to the next layer">
+              &minus; Zoom out
+            </button>
+            <button type="button" class="ghost" id="zoom-in" title="Zoom in to the next layer">
+              + Zoom in
+            </button>
+            <button type="button" class="ghost" id="save-png">Save PNG</button>
+          </div>
+          <div class="panel info" id="info" aria-live="polite"></div>
+        </div>
+
+        <div class="side">
+          <div class="panel">
+            <h3>Layers, outside in</h3>
+            <ol class="layers" id="layers"></ol>
+            <p class="note">
+              Click a layer to zoom to it. Untick it to hide it.
+            </p>
+          </div>
+          <div class="panel">
+            <h3>View</h3>
+            <div class="chips" id="style-chips" role="group" aria-label="Style"></div>
+            <label class="opt"><input type="checkbox" id="opt-orbits" /> Planets on their orbits</label>
+            <label class="opt"><input type="checkbox" id="opt-spin" /> Turn slowly</label>
+            <label class="opt"><input type="checkbox" id="opt-cutaway" /> Cut away the outer layers</label>
+          </div>
+          <div class="panel">
+            <h3>Kepler's model</h3>
+            <div class="chips" id="shell-chips" role="group" aria-label="Planet spheres"></div>
+            <p class="note">
+              Thin spheres put each planet at its mean distance. Kepler gave
+              each sphere a thickness, from the planet's nearest to its farthest
+              point from the Sun, and fit the solids between the shells.
+            </p>
+            <div class="chips" id="mercury-chips" role="group" aria-label="Mercury's sphere"></div>
+            <p class="note">
+              Mercury fit badly, so Kepler let its sphere touch the edges of
+              the octahedron instead of its faces.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section">How close did he come?</h3>
+      <div class="tables">
+        <div class="table-wrap">
+          <table class="ratios">
+            <caption>
+              Inner sphere over outer sphere, for each solid
+            </caption>
+            <thead>
+              <tr>
+                <th>Solid</th>
+                <th>Between</th>
+                <th class="num">Kepler</th>
+                <th class="num" id="ratio-head-real">Real</th>
+                <th class="num">Off by</th>
+              </tr>
+            </thead>
+            <tbody id="ratio-rows"></tbody>
+          </table>
+        </div>
+        <div class="table-wrap">
+          <table class="ratios">
+            <caption>
+              Distance from the Sun, with the Earth at 1
+            </caption>
+            <thead>
+              <tr>
+                <th>Planet</th>
+                <th class="num">Kepler</th>
+                <th class="num">Real</th>
+                <th class="num">Off by</th>
+              </tr>
+            </thead>
+            <tbody id="dist-rows"></tbody>
+          </table>
+        </div>
+      </div>
+      <p class="note">
+        The real ratios use today's mean distances and eccentricities. Within
+        5% is green, within 12% amber. Kepler, working from Copernicus's
+        tables, found errors of the same size and blamed the tables at first.
+        It was Tycho Brahe's better data that finally showed him the cup could
+        not fit, and led him instead to elliptical orbits.
+      </p>
+
+      <div class="footer">
+        <p><a href="about.html">About Kepler's cosmic cup</a></p>
+        <p>
+          Distances are computed from the geometry of the solids and compared with the mean distances of the planets from the Sun.
+        </p>
+        <p>
+          Kepler's Cosmic Cup is open source on
+          <a href="https://github.com/evoluteur/keplers-cosmic-cup">GitHub</a>
+          with an MIT license.
+        </p>
+        <p>
+          Had fun browsing the app?
+          <a href="https://github.com/sponsors/evoluteur"
+            >Buy me a coffee by becoming a sponsor</a
+          >.
+        </p>
+        <p>
+          You may also like
+          <a href="https://evoluteur.github.io/platonic-solids/">Platonic Solids</a>,
+          <a href="https://evoluteur.github.io/music-of-the-spheres/">Music of the Spheres</a>,
+          <a href="https://evoluteur.github.io/archimedean-solids/">Archimedean Solids</a>,
+          and <a href="https://evoluteur.github.io/sacred-geometry/">Sacred Geometry</a>. For more mystic arts as small web apps, see
+          <a href="https://evoluteur.github.io/esoterica.html">Esoterica</a>.
+        </p>
+        <p class="copyright">
+          &#169; 2026
+          <a href="https://evoluteur.github.io/">Olivier Giulieri</a>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
